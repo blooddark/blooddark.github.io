@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>定时计划命令 crontab 的使用，解决 Tomcat 日志定时清理问题 | Blog of Eddy</title>
+    <meta name="description" content="不忘初心 方得始终 砥砺前行 终达彼岸">
+    <meta name="generator" content="VuePress 1.3.1">
+    <link rel="icon" href="/img/logo.jpg">
+    
+    <link rel="preload" href="/assets/css/0.styles.42563858.css" as="style"><link rel="preload" href="/assets/js/app.123c821c.js" as="script"><link rel="preload" href="/assets/js/2.c90170cc.js" as="script"><link rel="preload" href="/assets/js/32.8b105301.js" as="script"><link rel="prefetch" href="/assets/js/10.843e8951.js"><link rel="prefetch" href="/assets/js/11.85e91ad3.js"><link rel="prefetch" href="/assets/js/12.4269f99d.js"><link rel="prefetch" href="/assets/js/13.b51eab9e.js"><link rel="prefetch" href="/assets/js/14.d22fffad.js"><link rel="prefetch" href="/assets/js/15.f68812fa.js"><link rel="prefetch" href="/assets/js/16.4e9874e8.js"><link rel="prefetch" href="/assets/js/17.001bccf6.js"><link rel="prefetch" href="/assets/js/18.b240f4a5.js"><link rel="prefetch" href="/assets/js/19.67853006.js"><link rel="prefetch" href="/assets/js/20.c1774946.js"><link rel="prefetch" href="/assets/js/21.68c0f96e.js"><link rel="prefetch" href="/assets/js/22.cd0888ed.js"><link rel="prefetch" href="/assets/js/23.03ecc41b.js"><link rel="prefetch" href="/assets/js/24.f29da7cb.js"><link rel="prefetch" href="/assets/js/25.19c529ec.js"><link rel="prefetch" href="/assets/js/26.d54de24c.js"><link rel="prefetch" href="/assets/js/27.35183c95.js"><link rel="prefetch" href="/assets/js/28.b6788c49.js"><link rel="prefetch" href="/assets/js/29.bd45eb30.js"><link rel="prefetch" href="/assets/js/3.2725cad9.js"><link rel="prefetch" href="/assets/js/30.285a9d90.js"><link rel="prefetch" href="/assets/js/31.199e7919.js"><link rel="prefetch" href="/assets/js/33.82c29a53.js"><link rel="prefetch" href="/assets/js/34.43b7c4d4.js"><link rel="prefetch" href="/assets/js/35.060faffb.js"><link rel="prefetch" href="/assets/js/36.5a29096a.js"><link rel="prefetch" href="/assets/js/37.9187946c.js"><link rel="prefetch" href="/assets/js/38.8a648f17.js"><link rel="prefetch" href="/assets/js/39.1a0260b2.js"><link rel="prefetch" href="/assets/js/4.abbfb2e9.js"><link rel="prefetch" href="/assets/js/40.f35a9cf2.js"><link rel="prefetch" href="/assets/js/41.0bfee70d.js"><link rel="prefetch" href="/assets/js/42.34bdf90e.js"><link rel="prefetch" href="/assets/js/5.744e3a90.js"><link rel="prefetch" href="/assets/js/6.adc0d8fc.js"><link rel="prefetch" href="/assets/js/7.843e01fa.js"><link rel="prefetch" href="/assets/js/8.8687a246.js"><link rel="prefetch" href="/assets/js/9.01041d81.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.42563858.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Blog of Eddy</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/support/" class="nav-link">
+  支持
+</a></div><div class="nav-item"><a href="/blog/last.html" class="nav-link">
+  最新
+</a></div><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博文" class="dropdown-title"><span class="title">博文</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-item"><!----> <a href="/blog/java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/blog/java-spring-data-jpa/" class="nav-link">
+  Java-Spring-Data-Jpa
+</a></li><li class="dropdown-item"><!----> <a href="/blog/linux/" class="nav-link router-link-active">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/blog/docker/" class="nav-link">
+  Docker
+</a></li><li class="dropdown-item"><!----> <a href="/blog/nginx/" class="nav-link">
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/blog/front-end/" class="nav-link">
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/blog/diary/" class="nav-link">
+  日常
+</a></li></ul></div></div><div class="nav-item"><a href="/about/" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://github.com/blooddark/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/blooddark/vuepress-blog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/support/" class="nav-link">
+  支持
+</a></div><div class="nav-item"><a href="/blog/last.html" class="nav-link">
+  最新
+</a></div><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博文" class="dropdown-title"><span class="title">博文</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-item"><!----> <a href="/blog/java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-item"><!----> <a href="/blog/java-spring-data-jpa/" class="nav-link">
+  Java-Spring-Data-Jpa
+</a></li><li class="dropdown-item"><!----> <a href="/blog/linux/" class="nav-link router-link-active">
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/blog/docker/" class="nav-link">
+  Docker
+</a></li><li class="dropdown-item"><!----> <a href="/blog/nginx/" class="nav-link">
+  Nginx
+</a></li><li class="dropdown-item"><!----> <a href="/blog/front-end/" class="nav-link">
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/blog/diary/" class="nav-link">
+  日常
+</a></li></ul></div></div><div class="nav-item"><a href="/about/" class="nav-link">
+  关于
+</a></div><div class="nav-item"><a href="https://github.com/blooddark/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/blooddark/vuepress-blog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><a href="/" class="sidebar-link">Home</a></li><li><a href="/blog/" class="sidebar-link">目录</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>日常</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Docker</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Java-Spring-Data-Jpa</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Linux</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/linux/" class="sidebar-link">目录</a></li><li><a href="/blog/linux/1.html" class="active sidebar-link">定时计划命令 crontab 的使用，解决 Tomcat 日志定时清理问题</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/linux/1.html#背景" class="sidebar-link">背景</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/linux/1.html#问题" class="sidebar-link">问题</a></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#解决过程" class="sidebar-link">解决过程</a></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#完善" class="sidebar-link">完善</a></li></ul></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#详细过程" class="sidebar-link">详细过程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/linux/1.html#清理日志的脚本" class="sidebar-link">清理日志的脚本</a></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#crontab-的使用" class="sidebar-link">crontab 的使用</a></li></ul></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#crontab命令详解" class="sidebar-link">crontab命令详解</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/linux/1.html#一、cron服务" class="sidebar-link">一、cron服务</a></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#二、cron配置文件的位置" class="sidebar-link">二、cron配置文件的位置</a></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#三、crontab格式说明" class="sidebar-link">三、crontab格式说明</a></li><li class="sidebar-sub-header"><a href="/blog/linux/1.html#四、crontab命令" class="sidebar-link">四、crontab命令</a></li></ul></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Python</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>前端</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="定时计划命令-crontab-的使用，解决-tomcat-日志定时清理问题"><a href="#定时计划命令-crontab-的使用，解决-tomcat-日志定时清理问题" class="header-anchor">#</a> 定时计划命令 crontab 的使用，解决 Tomcat 日志定时清理问题</h1> <h2 id="背景"><a href="#背景" class="header-anchor">#</a> 背景</h2> <h3 id="问题"><a href="#问题" class="header-anchor">#</a> 问题</h3> <p>一个之前的项目，客户使用一年后，数据库执行SQL语句出现问题，报错<code>The table xxxx is full</code>，表空间满了。</p> <h3 id="解决过程"><a href="#解决过程" class="header-anchor">#</a> 解决过程</h3> <p>检查服务器，发现服务器磁盘满了，但是用户数据只有7GB左右，硬盘是40GB的。找到Tomcat日志占空间32GB，清理Tomcat日志后程序正常运行。</p> <h3 id="完善"><a href="#完善" class="header-anchor">#</a> 完善</h3> <p>编写清理日志的bash脚本，并使用crontab定时一个月执行一次，清理本月之前的日志。保留本月日志以排查问题。</p> <h2 id="详细过程"><a href="#详细过程" class="header-anchor">#</a> 详细过程</h2> <h3 id="清理日志的脚本"><a href="#清理日志的脚本" class="header-anchor">#</a> 清理日志的脚本</h3> <p>放在tomcat目录下的logs文件夹里即可。logs_path请自行替换。</p> <div class="language-bash line-numbers-mode"><pre class="language-bash"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token assign-left variable">logs_path</span><span class="token operator">=</span><span class="token string">&quot;/usr/local/apache-tomcat-8.5.31/logs&quot;</span>
+
+<span class="token function">find</span> <span class="token variable">$logs_path</span> -mtime +30 -name <span class="token string">&quot;localhost.*.log&quot;</span> -exec <span class="token function">rm</span> -rf <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">\</span><span class="token punctuation">;</span>
+<span class="token function">find</span> <span class="token variable">$logs_path</span> -mtime +30 -name <span class="token string">&quot;localhost_access_log.*.txt&quot;</span> -exec <span class="token function">rm</span> -rf <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">\</span><span class="token punctuation">;</span>
+<span class="token function">find</span> <span class="token variable">$logs_path</span> -mtime +30 -name <span class="token string">&quot;catalina.*.log&quot;</span> -exec <span class="token function">rm</span> -rf <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">\</span><span class="token punctuation">;</span>
+<span class="token function">find</span> <span class="token variable">$logs_path</span> -mtime +30 -name <span class="token string">&quot;manager.*.log&quot;</span> -exec <span class="token function">rm</span> -rf <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">\</span><span class="token punctuation">;</span>
+<span class="token function">find</span> <span class="token variable">$logs_path</span> -mtime +30 -name <span class="token string">&quot;host-manager.*.log&quot;</span> -exec <span class="token function">rm</span> -rf <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">\</span><span class="token punctuation">;</span>
+<span class="token function">find</span> <span class="token variable">$logs_path</span> -mtime +30 -name <span class="token string">&quot;fileservice.log.*&quot;</span> -exec <span class="token function">rm</span> -rf <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">\</span><span class="token punctuation">;</span>
+<span class="token operator">&gt;</span><span class="token variable">$logs_path</span>/catalina.out<span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h3 id="crontab-的使用"><a href="#crontab-的使用" class="header-anchor">#</a> crontab 的使用</h3> <p>执行<code>crontab -e</code>编辑定时任务，并添加<code>0 2 1 * * sh /usr/local/apache-tomcat-8.5.31/logs/clean.sh</code>。
+即定时执行clean.sh脚本，每月1日凌晨2点执行。具体含义请看详解。</p> <h2 id="crontab命令详解"><a href="#crontab命令详解" class="header-anchor">#</a> crontab命令详解</h2> <p>在Linux中，周期执行的任务一般由cron这个守护进程来处理[ps -ef|grep cron]。cron读取一个或多个配置文件，这些配置文件中包含了命令行及其调用时间。
+cron的配置文件称为“crontab”，是“cron table”的简写。</p> <h3 id="一、cron服务"><a href="#一、cron服务" class="header-anchor">#</a> 一、cron服务</h3> <p>cron是一个linux下 的定时执行工具，可以在无需人工干预的情况下运行作业。</p> <div class="language-bash line-numbers-mode"><pre class="language-bash"><code><span class="token function">service</span> crond start    //启动服务
+<span class="token function">service</span> crond stop     //关闭服务
+<span class="token function">service</span> crond restart  //重启服务
+<span class="token function">service</span> crond reload   //重新载入配置
+<span class="token function">service</span> crond status   //查看服务状态 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="二、cron配置文件的位置"><a href="#二、cron配置文件的位置" class="header-anchor">#</a> 二、cron配置文件的位置</h3> <p>/var/spool/cron/crontabs/ 这个目录下存放的是每个用户包括root的crontab任务，每个任务以创建者的名字命名，比如tom建的crontab任务对应的文件就是/var/spool/cron/tom。一般一个用户最多只有一个crontab文件。</p> <h3 id="三、crontab格式说明"><a href="#三、crontab格式说明" class="header-anchor">#</a> 三、crontab格式说明</h3> <p>用户所建立的crontab文件中，每一行都代表一项任务，每行的每个字段代表一项设置，它的格式共分为六个字段，前五段是时间设定段，第六段是要执行的命令段，格式如下：
+minute hour day month week command<br>
+其中：<br>
+minute： 表示分钟，可以是从0到59之间的任何整数。<br>
+hour：表示小时，可以是从0到23之间的任何整数。<br>
+day：表示日期，可以是从1到31之间的任何整数。<br>
+month：表示月份，可以是从1到12之间的任何整数。
+week：表示星期几，可以是从0到7之间的任何整数，这里的0或7代表星期日。<br>
+command：要执行的命令，可以是系统命令，也可以是自己编写的脚本文件。<br> <img src="/img/linux/1-1.png" alt="crontab格式说明"><br>
+在以上各个字段中，还可以使用以下特殊字符：<br>
+星号（<em>）：代表所有可能的值，例如month字段如果是星号，则表示在满足其它字段的制约条件后每月都执行该命令操作。<br>
+逗号（,）：可以用逗号隔开的值指定一个列表范围，例如，“1,2,5,7,8,9”<br>
+中杠（-）：可以用整数之间的中杠表示一个整数范围，例如“2-6”表示“2,3,4,5,6”<br>
+正斜线（/）：可以用正斜线指定时间的间隔频率，例如“0-23/2”表示每两小时执行一次。同时正斜线可以和星号一起使用，例如</em>/10，如果用在minute字段，表示每十分钟执行一次。</p> <h3 id="四、crontab命令"><a href="#四、crontab命令" class="header-anchor">#</a> 四、crontab命令</h3> <h4 id="_1-命令格式"><a href="#_1-命令格式" class="header-anchor">#</a> 1.命令格式</h4> <div class="language-bash line-numbers-mode"><pre class="language-bash"><code><span class="token function">crontab</span> <span class="token punctuation">[</span>-u user<span class="token punctuation">]</span> <span class="token function">file</span>
+<span class="token function">crontab</span> <span class="token punctuation">[</span>-u user<span class="token punctuation">]</span> <span class="token punctuation">[</span> -e <span class="token operator">|</span> -l <span class="token operator">|</span> -r <span class="token punctuation">]</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h4 id="_2．命令功能"><a href="#_2．命令功能" class="header-anchor">#</a> 2．命令功能</h4> <p>通过crontab 命令，我们可以在固定的间隔时间执行指定的系统指令或 shell script脚本。时间间隔的单位可以是分钟、小时、日、月、周及以上的任意组合。这个命令非常设合周期性的日志分析或数据备份等工作。</p> <h4 id="_3．命令参数"><a href="#_3．命令参数" class="header-anchor">#</a> 3．命令参数</h4> <p><code>-u user</code>：用来设定某个用户的crontab服务，例如，“-u ixdba”表示设定ixdba用户的crontab服务，此参数一般有root用户来运行。</p> <p><code>file</code>：file是命令文件的名字,表示将file做为crontab的任务列表文件并载入crontab。如果在命令行中没有指定这个文件，crontab命令将接受标准输入（键盘）上键入的命令，并将它们载入crontab。</p> <p><code>-e</code>：编辑某个用户的crontab文件内容。如果不指定用户，则表示编辑当前用户的crontab文件。</p> <p><code>-l</code>：显示某个用户的crontab文件内容，如果不指定用户，则表示显示当前用户的crontab文件内容。</p> <p><code>-r</code>：从/var/spool/cron目录中删除某个用户的crontab文件，如果不指定用户，则默认删除当前用户的crontab文件。</p> <p><code>-i</code>：在删除用户的crontab文件时给确认提示。</p> <h4 id="_4-实例"><a href="#_4-实例" class="header-anchor">#</a> 4. 实例</h4> <p>实例1：每1分钟执行一次command<br>
+命令：
+<code>* * * * * command</code></p> <p>实例2：每小时的第3和第15分钟执行<br>
+命令：
+<code>3,15 * * * * command</code></p> <p>实例3：在上午8点到11点的第3和第15分钟执行<br>
+命令：
+<code>3,15 8-11 * * * command</code></p> <p>实例4：每隔两天的上午8点到11点的第3和第15分钟执行<br>
+命令：
+<code>3,15 8-11 */2 * * command</code></p> <p>实例5：每个星期一的上午8点到11点的第3和第15分钟执行<br>
+命令：
+<code>3,15 8-11 * * 1 command</code></p> <p>实例6：每晚的21:30重启smb<br>
+命令：
+<code>30 21 * * * /etc/init.d/smb restart</code></p> <p>实例7：每月1、10、22日的4 : 45重启smb<br>
+命令：
+<code>45 4 1,10,22 * * /etc/init.d/smb restart</code></p> <p>实例8：每周六、周日的1 : 10重启smb<br>
+命令：
+<code>10 1 * * 6,0 /etc/init.d/smb restart</code></p> <p>实例9：每天18 : 00至23 : 00之间每隔30分钟重启smb<br>
+命令：
+<code>0,30 18-23 * * * /etc/init.d/smb restart</code></p> <p>实例10：每星期六的晚上11 : 00 pm重启smb<br>
+命令：
+<code>0 23 * * 6 /etc/init.d/smb restart</code></p> <p>实例11：每一小时重启smb<br>
+命令：
+<code>* */1 * * * /etc/init.d/smb restart</code></p> <p>实例12：晚上11点到早上7点之间，每隔一小时重启smb<br>
+命令：
+<code>* 23-7/1 * * * /etc/init.d/smb restart</code></p> <p>实例13：每月的4号与每周一到周三的11点重启smb<br>
+命令：
+<code>0 11 4 * mon-wed /etc/init.d/smb restart</code></p> <p>实例14：一月一号的4点重启smb<br>
+命令：
+<code>0 4 1 jan * /etc/init.d/smb restart</code></p> <p>实例15：每小时执行/etc/cron.hourly目录内的脚本<br>
+命令：
+<code>01 * * * * root run-parts /etc/cron.hourly</code><br>
+说明：
+run-parts这个参数了，如果去掉这个参数的话，后面就可以写要运行的某个脚本名，而不是目录名了</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/blooddark/vuepress-blog/edit/master/blog/linux/1.md" target="_blank" rel="noopener noreferrer">帮助我改善此页面</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2019/7/24 下午8:00:11</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/linux/" class="prev router-link-active">
+        目录
+      </a></span> <span class="next"><a href="/blog/nginx/">
+        目录
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.123c821c.js" defer></script><script src="/assets/js/2.c90170cc.js" defer></script><script src="/assets/js/32.8b105301.js" defer></script>
+  </body>
+</html>
